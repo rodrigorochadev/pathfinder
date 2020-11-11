@@ -1,10 +1,3 @@
-/**
- * SEO component that queries for data with
- *  Gatsby's useStaticQuery React hook
- *
- * See: https://www.gatsbyjs.com/docs/use-static-query/
- */
-
 import React from "react"
 import PropTypes from "prop-types"
 import { Helmet } from "react-helmet"
@@ -19,6 +12,9 @@ function SEO({ description, lang, meta, title }) {
             title
             description
             author
+            url
+            image
+            keywords
           }
         }
       }
@@ -26,7 +22,6 @@ function SEO({ description, lang, meta, title }) {
   )
 
   const metaDescription = description || site.siteMetadata.description
-  const defaultTitle = site.siteMetadata?.title
 
   return (
     <Helmet
@@ -34,15 +29,19 @@ function SEO({ description, lang, meta, title }) {
         lang,
       }}
       title={title}
-      titleTemplate={defaultTitle ? `%s | ${defaultTitle}` : null}
+      titleTemplate={`%s | ${site.siteMetadata.title}`}
       meta={[
         {
           name: `description`,
           content: metaDescription,
         },
         {
+          name: `keywords`,
+          content: `${site.siteMetadata.keywords}`,
+        },
+        {
           property: `og:title`,
-          content: title,
+          content: `${title} - Pathfinder Designs`,
         },
         {
           property: `og:description`,
@@ -53,12 +52,24 @@ function SEO({ description, lang, meta, title }) {
           content: `website`,
         },
         {
+          property: `og:image`,
+          content: site.siteMetadata.image,
+        },
+        {
+          property: `og:image:alt`,
+          content: `Pathfinder Designs`,
+        },
+        {
+          property: `og:url`,
+          content: site.siteMetadata.url,
+        },
+        {
           name: `twitter:card`,
-          content: `summary`,
+          content: `summary_large_image`,
         },
         {
           name: `twitter:creator`,
-          content: site.siteMetadata?.author || ``,
+          content: site.siteMetadata.author,
         },
         {
           name: `twitter:title`,
